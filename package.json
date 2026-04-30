@@ -1,0 +1,28 @@
+{
+  "name": "school-management-api",
+  "version": "1.0.0",
+  "description": "School Management API with Express and MySQL",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js",
+    "build": "node --check server/index.js && node --check server/db/connection.js && node --check server/routes/schoolRoutes.js && node --check server/controllers/schoolController.js && node --check server/services/schoolService.js && node --check server/middlewares/asyncHandler.js && node --check server/middlewares/errorHandler.js && node --check server/utils/appError.js && node --check server/validations/schoolValidation.js",
+    "docker:up": "docker compose up -d",
+    "docker:down": "docker compose down",
+    "docker:restart": "docker compose down && docker compose up -d",
+    "docker:logs": "docker compose logs -f mysql",
+    "docker:reset": "docker compose down -v && docker compose up -d"
+  },
+  "keywords": [
+    "express",
+    "mysql",
+    "school-api"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "mysql2": "^3.15.2"
+  }
+}

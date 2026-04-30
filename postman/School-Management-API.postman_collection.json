@@ -1,0 +1,116 @@
+{
+  "info": {
+    "name": "School Management API",
+    "_postman_id": "f1f30f4e-584f-44a3-a6b0-d40a26e51f93",
+    "description": "Phase 2 collection with request and response examples.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "health"
+          ]
+        },
+        "description": "Checks service availability."
+      },
+      "response": [
+        {
+          "name": "Success",
+          "status": "OK",
+          "code": 200,
+          "body": "{\n  \"success\": true,\n  \"message\": \"Server is healthy\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Add School",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Green Valley School\",\n  \"address\": \"MG Road, Bengaluru\",\n  \"latitude\": 12.9716,\n  \"longitude\": 77.5946\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/addSchool",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "addSchool"
+          ]
+        },
+        "description": "Creates one school record."
+      },
+      "response": [
+        {
+          "name": "Created",
+          "status": "Created",
+          "code": 201,
+          "body": "{\n  \"success\": true,\n  \"message\": \"School added successfully\",\n  \"data\": {\n    \"id\": 1,\n    \"name\": \"Green Valley School\",\n    \"address\": \"MG Road, Bengaluru\",\n    \"latitude\": 12.9716,\n    \"longitude\": 77.5946\n  }\n}"
+        },
+        {
+          "name": "Validation Error",
+          "status": "Bad Request",
+          "code": 400,
+          "body": "{\n  \"success\": false,\n  \"message\": \"Validation failed\",\n  \"error\": {\n    \"code\": 400,\n    \"details\": [\n      \"name is required and must be a string\"\n    ]\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "List Schools Sorted by Distance",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/listSchools?lat=12.9352&lng=77.6245",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "listSchools"
+          ],
+          "query": [
+            {
+              "key": "lat",
+              "value": "12.9352"
+            },
+            {
+              "key": "lng",
+              "value": "77.6245"
+            }
+          ]
+        },
+        "description": "Returns schools sorted nearest to farthest."
+      },
+      "response": [
+        {
+          "name": "Success",
+          "status": "OK",
+          "code": 200,
+          "body": "{\n  \"success\": true,\n  \"message\": \"Schools fetched successfully\",\n  \"data\": [\n    {\n      \"id\": 1,\n      \"name\": \"Green Valley School\",\n      \"address\": \"MG Road, Bengaluru\",\n      \"latitude\": 12.9716,\n      \"longitude\": 77.5946,\n      \"distanceKm\": 4.621\n    }\n  ]\n}"
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    }
+  ]
+}
